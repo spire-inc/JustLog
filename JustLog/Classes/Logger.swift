@@ -79,7 +79,7 @@ public final class Logger: NSObject {
             file = JustLog.FileDestination()
             file.format = format
             if let baseURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first {
-                file.logFileURL = baseURL.appendingPathComponent(logFilename ?? "justeat.log", isDirectory: false)
+                file.logFileURL = baseURL.appendingPathComponent(logFilename ?? "justlog.log", isDirectory: false)
             }
             internalLogger.addDestination(file)
         }
