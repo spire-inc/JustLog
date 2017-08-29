@@ -112,22 +112,13 @@ extension AsyncSocketManager {
 extension AsyncSocketManager: GCDAsyncSocketDelegate {
 
     func socket(_ sock: GCDAsyncSocket, didConnectToHost host: String, port: UInt16) {
-        if logActivity {
-            print("🔌 <AsyncSocket>, connected!")
-        }
     }
     
     func socketDidSecure(_ sock: GCDAsyncSocket) {
-        if logActivity {
-            print("🔌 <AsyncSocket>, did secure")
-        }
         self.delegate?.socketDidSecure(sock)
     }
     
     func socket(_ sock: GCDAsyncSocket, didWriteDataWithTag tag: Int) {
-        if logActivity {
-            print("🔌 <AsyncSocket>, did write")
-        }
         self.delegate?.socket(sock, didWriteDataWithTag: tag)
     }
     
@@ -135,9 +126,6 @@ extension AsyncSocketManager: GCDAsyncSocketDelegate {
         if logActivity {
             if let err = err {
                 print("🔌 <AsyncSocket>, disconnected with error: \(err.localizedDescription)")
-            }
-            else {
-                print("🔌 <AsyncSocket>, disconnected!")
             }
         }
         self.delegate?.socket(sock, didDisconnectWithError: err)
