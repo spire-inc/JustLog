@@ -57,7 +57,7 @@ public final class Logger: NSObject {
     }
     
     public func setup() {
-        let format = "$Dyyyy-MM-dd HH:mm:ss.SSS$d $X $C: $M"
+        let format = "$C $Dyyyy-MM-dd HH:mm:ss.SSS$d $X: $M"
         
         // console
         if enableConsoleLogging {
