@@ -495,7 +495,7 @@
 				B509EDB81F54F2AA00F92E63 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		B509EDB91F54F2AA00F92E63 /* Build configuration list for PBXNativeTarget "JustLog" */ = {
 			isa = XCConfigurationList;
@@ -504,7 +504,7 @@
 				B509EDBB1F54F2AA00F92E63 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		B509EDBC1F54F2AA00F92E63 /* Build configuration list for PBXNativeTarget "JustLogTests" */ = {
 			isa = XCConfigurationList;
@@ -513,7 +513,7 @@
 				B509EDBE1F54F2AA00F92E63 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

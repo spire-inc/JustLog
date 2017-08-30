@@ -25,6 +25,7 @@ public final class Logger: NSObject {
     public var fileKey = "file"
     public var functionKey = "function"
     public var lineKey = "line"
+    public var queueLabelKey = "queue_label"
     
     public var appVersionKey = "app_version"
     public var iosVersionKey = "ios_version"
@@ -69,8 +70,7 @@ public final class Logger: NSObject {
     }
     
     public func setup() {
-        
-        let format = "$Dyyyy-MM-dd HH:mm:ss.SSS$d $T $C$L$c: $M"
+        let format = "$Dyyyy-MM-dd HH:mm:ss.SSS$d $X $C: $M"
         
         // console
         if enableConsoleLogging {
@@ -118,41 +118,40 @@ extension Logger: Logging {
         let file = String(describing: file)
         let function = String(describing: function)
         let updatedUserInfo = [logTypeKey: "verbose"].merged(with: userInfo ?? [String : String]())
-        log(.verbose, message, error: error, userInfo: updatedUserInfo, file, function, line)
+        let logMessage = self.logMessage(message, error: error, userInfo: updatedUserInfo, file, function, line, currentQueueLabel())
+        internalLogger.verbose(logMessage, file, function, line: Int(line), context: currentQueueLabel())
     }
     
     public func debug(_ message: String, error: NSError?, userInfo: [String : Any]?, _ file: StaticString, _ function: StaticString, _ line: UInt) {
         let file = String(describing: file)
         let function = String(describing: function)
         let updatedUserInfo = [logTypeKey: "debug"].merged(with: userInfo ?? [String : String]())
-        log(.debug, message, error: error, userInfo: updatedUserInfo, file, function, line)
+        let logMessage = self.logMessage(message, error: error, userInfo: updatedUserInfo, file, function, line, currentQueueLabel())
+        internalLogger.debug(logMessage, file, function, line: Int(line), context: currentQueueLabel())
     }
     
     public func info(_ message: String, error: NSError?, userInfo: [String : Any]?, _ file: StaticString, _ function: StaticString, _ line: UInt) {
         let file = String(describing: file)
         let function = String(describing: function)
         let updatedUserInfo = [logTypeKey: "info"].merged(with: userInfo ?? [String : String]())
-        log(.info, message, error: error, userInfo: updatedUserInfo, file, function, line)
+        let logMessage = self.logMessage(message, error: error, userInfo: updatedUserInfo, file, function, line, currentQueueLabel())
+        internalLogger.info(logMessage, file, function, line: Int(line), context: currentQueueLabel())
     }
     
     public func warning(_ message: String, error: NSError?, userInfo: [String : Any]?, _ file: StaticString, _ function: StaticString, _ line: UInt) {
         let file = String(describing: file)
         let function = String(describing: function)
         let updatedUserInfo = [logTypeKey: "warning"].merged(with: userInfo ?? [String : String]())
-        log(.warning, message, error: error, userInfo: updatedUserInfo, file, function, line)
-
+        let logMessage = self.logMessage(message, error: error, userInfo: updatedUserInfo, file, function, line, currentQueueLabel())
+        internalLogger.warning(logMessage, file, function, line: Int(line), context: currentQueueLabel())
     }
     
     public func error(_ message: String, error: NSError?, userInfo: [String : Any]?, _ file: StaticString, _ function: StaticString, _ line: UInt) {
         let file = String(describing: file)
         let function = String(describing: function)
         let updatedUserInfo = [logTypeKey: "error"].merged(with: userInfo ?? [String : Any]())
-        log(.error, message, error: error, userInfo: updatedUserInfo, file, function, line)
-    }
-    
-    internal func log(_ type: LogType, _ message: String, error: NSError?, userInfo: [String : Any]?, _ file: String, _ function: String, _ line: UInt) {
-        let messageToLog = logMessage(message, error: error, userInfo: userInfo, file, function, line)
-        sendLogMessage(with: type, logMessage: messageToLog, file, function, line)
+        let logMessage = self.logMessage(message, error: error, userInfo: updatedUserInfo, file, function, line, currentQueueLabel())
+        internalLogger.error(logMessage, file, function, line: Int(line), context: currentQueueLabel())
     }
     
     internal func sendLogMessage(with type: LogType, logMessage: String, _ file: String, _ function: String, _ line: UInt) {
@@ -172,9 +171,17 @@ extension Logger: Logging {
 }
 
 extension Logger {
-    
-    internal func logMessage(_ message: String, error: NSError?, userInfo: [String : Any]?, _ file: String, _ function: String, _ line: UInt) -> String {
-    
+
+    fileprivate func currentQueueLabel() -> String {
+        if let name = String(cString: __dispatch_queue_get_label(nil), encoding: .utf8) {
+            return name
+        } else {
+            return ""
+        }
+    }
+
+    fileprivate func logMessage(_ message: String, error: NSError?, userInfo: [String : Any]?, _ file: String, _ function: String, _ line: UInt, _ context: Any? = nil) -> String {
+
         let messageConst = "message"
         let userInfoConst = "user_info"
         let metadataConst = "metadata"
@@ -211,6 +218,7 @@ extension Logger {
         
         fileMetadata[functionKey] = function
         fileMetadata[lineKey] = String(line)
+        fileMetadata[queueLabelKey] = String(describing: context)
         
         if let bundleVersion = Bundle.main.infoDictionary?["CFBundleVersion"], let bundleShortVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] {
             fileMetadata[appVersionKey] = "\(bundleShortVersion) (\(bundleVersion))"
