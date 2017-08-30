@@ -23,11 +23,17 @@ public class FileDestination: BaseDestination {
         levelColor.info = "ℹ️ "
         levelColor.warning = "⚠️ "
         levelColor.error = "☠️ "
+        
+        levelString.verbose = ""
+        levelString.debug = ""
+        levelString.info = ""
+        levelString.warning = ""
+        levelString.error = ""
     }
 
     override public func send(_ level: SwiftyBeaver.Level, msg: String, thread: String,
         file: String, function: String, line: Int, context: Any?) -> String? {
-        let formattedString = super.send(level, msg: msg, thread: thread, file: file, function: function, line: line)
+        let formattedString = super.send(level, msg: msg, thread: thread, file: file, function: function, line: line, context: context)
 
         if let str = formattedString {
             let _ = saveToFile(str: str)
