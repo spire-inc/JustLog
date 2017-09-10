@@ -14,8 +14,8 @@ public class ConsoleDestination: BaseDestination {
     public override init() {
         super.init()
         
-        levelColor.verbose = "�"
-        levelColor.debug = "�"
+        levelColor.verbose = "📣"
+        levelColor.debug = "📝"
         levelColor.info = "ℹ️"
         levelColor.warning = "⚠️"
         levelColor.error = "☠️"
