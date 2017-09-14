@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftyBeaver
+import os.log
 
 public class ConsoleDestination: BaseDestination {
     
@@ -42,7 +43,7 @@ public class ConsoleDestination: BaseDestination {
         let formattedString = super.send(level, msg: innerMessage, thread: thread, file: file, function: function, line: line, context: context)
 
         if let str = formattedString {
-            print(str)
+            os_log("%{public}@", str)
         }
         return formattedString
     }

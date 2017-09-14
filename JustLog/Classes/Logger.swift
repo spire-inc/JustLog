@@ -70,12 +70,13 @@ public final class Logger: NSObject {
     }
     
     public func setup() {
-        let format = "$C $Dyyyy-MM-dd HH:mm:ss.SSS$d $X: $M"
+        let format = "$C $X $N:$F: $M"
         
         // console
         if enableConsoleLogging {
             console = JustLog.ConsoleDestination()
             console.format = format
+            console.asynchronously = true
             internalLogger.addDestination(console)
         }
         
