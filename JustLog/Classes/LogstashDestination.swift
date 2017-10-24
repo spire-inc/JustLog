@@ -68,23 +68,24 @@ public class LogstashDestination: BaseDestination  {
 
         self.completionHandler = completionHandler
         
-        logDispatchQueue.addOperation { [weak self] in
-            self?.socketManager.send()
+        logDispatchQueue.addOperation { [weak socketManager] in
+            socketManager?.send()
         }
     }
     
     func writeLogs() {
         
-        self.logDispatchQueue.addOperation{ [weak self] in
-            
-            guard let `self` = self else { return }
-            
-            for log in self.logsToShip.sorted(by: { $0.0 < $1.0 }) {
-                let logData = self.dataToShip(log.1)
-                self.socketManager.write(logData, withTimeout: self.socketManager.timeout, tag: log.0)
+        self.logDispatchQueue.addOperation{ [weak self, weak socketManager] in
+            guard let logsToShip = self?.logsToShip else { return }
+            guard let dataToShip = self?.dataToShip else { return }
+            guard let socketManager = socketManager else { return }
+
+            for log in logsToShip.sorted(by: { $0.0 < $1.0 }) {
+                let logData = dataToShip(log.1)
+                socketManager.write(logData, withTimeout: socketManager.timeout, tag: log.0)
             }
             
-            self.socketManager.disconnectSafely()
+            socketManager.disconnectSafely()
         }
     }
     
@@ -118,8 +119,8 @@ public class LogstashDestination: BaseDestination  {
 extension LogstashDestination: AsyncSocketManagerDelegate {
     
     func socket(_ socket: GCDAsyncSocket, didWriteDataWithTag tag: Int) {
-        logDispatchQueue.addOperation {
-            self.logsToShip[tag] = nil
+        logDispatchQueue.addOperation { [weak self] in
+            self?.logsToShip[tag] = nil
         }
         
         if let completionHandler = self.completionHandler {
