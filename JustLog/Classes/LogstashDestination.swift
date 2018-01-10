@@ -39,8 +39,8 @@ public class LogstashDestination: BaseDestination  {
     }
     
     public func cancelSending() {
-        self.logDispatchQueue.cancelAllOperations()
-        self.socketManager.disconnect()
+        logDispatchQueue.cancelAllOperations()
+        socketManager.disconnect()
     }
     
     // MARK: - Log dispatching
@@ -61,7 +61,7 @@ public class LogstashDestination: BaseDestination  {
 
     public func forceSend(_ completionHandler: @escaping (_ error: Error?) -> Void  = {_ in }) {
         
-        if self.logsToShip.count == 0 || self.socketManager.isConnected() {
+        if logsToShip.count == 0 || socketManager.isConnected() {
             completionHandler(nil)
             return
         }
@@ -74,14 +74,22 @@ public class LogstashDestination: BaseDestination  {
     }
     
     func writeLogs() {
-        
-        self.logDispatchQueue.addOperation{ [weak self, weak socketManager] in
-            guard let logsToShip = self?.logsToShip else { return }
-            guard let dataToShip = self?.dataToShip else { return }
+        logDispatchQueue.addOperation{ [weak socketManager, logsToShip] in
             guard let socketManager = socketManager else { return }
 
             for log in logsToShip.sorted(by: { $0.0 < $1.0 }) {
-                let logData = dataToShip(log.1)
+                let logData: Data = { dict in
+                    var data = Data()
+                    do {
+                        data = try JSONSerialization.data(withJSONObject:dict, options:[])
+                        if let encodedData = "\n".data(using: String.Encoding.utf8) {
+                            data.append(encodedData)
+                        }
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                    return data
+                }(log.value)
                 socketManager.write(logData, withTimeout: socketManager.timeout, tag: log.0)
             }
             
@@ -94,24 +102,6 @@ public class LogstashDestination: BaseDestination  {
         let logTag = Int(truncatingIfNeeded: time)
         logsToShip[logTag] = dict
     }
-    
-    func dataToShip(_ dict: [String: Any]) -> Data {
-        
-        var data = Data()
-        
-        do {
-            data = try JSONSerialization.data(withJSONObject:dict, options:[])
-            
-            if let encodedData = "\n".data(using: String.Encoding.utf8) {
-                data.append(encodedData)
-            }
-        } catch {
-            print(error.localizedDescription)
-        }
-        
-        return data
-    }
-    
 }
 
 // MARK: - GCDAsyncSocketManager Delegate
