@@ -219,7 +219,6 @@ extension Logger {
         
         fileMetadata[functionKey] = function
         fileMetadata[lineKey] = String(line)
-        fileMetadata[queueLabelKey] = String(describing: context)
         
         if let bundleVersion = Bundle.main.infoDictionary?["CFBundleVersion"], let bundleShortVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] {
             fileMetadata[appVersionKey] = "\(bundleShortVersion) (\(bundleVersion))"
