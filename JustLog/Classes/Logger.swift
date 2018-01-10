@@ -180,7 +180,7 @@ extension Logger {
             return ""
         }
     }
-
+    
     fileprivate func logMessage(_ message: String, error: NSError?, userInfo: [String : Any]?, _ file: String, _ function: String, _ line: UInt, _ context: Any? = nil) -> String {
 
         let messageConst = "message"
@@ -219,6 +219,7 @@ extension Logger {
         
         fileMetadata[functionKey] = function
         fileMetadata[lineKey] = String(line)
+        fileMetadata[queueLabelKey] = String(describing: context)
         
         if let bundleVersion = Bundle.main.infoDictionary?["CFBundleVersion"], let bundleShortVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] {
             fileMetadata[appVersionKey] = "\(bundleShortVersion) (\(bundleVersion))"

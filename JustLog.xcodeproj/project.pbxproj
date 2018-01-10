@@ -16,16 +16,15 @@
 		B509EDD61F54F30E00F92E63 /* FileDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = B509EDC61F54F30E00F92E63 /* FileDestination.swift */; };
 		B509EDD71F54F30E00F92E63 /* AsyncSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B509EDC71F54F30E00F92E63 /* AsyncSocketManager.swift */; };
 		B509EDD81F54F30E00F92E63 /* ConsoleDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = B509EDC81F54F30E00F92E63 /* ConsoleDestination.swift */; };
+		B509EDD91F54F30E00F92E63 /* UIDevice+Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = B509EDCA1F54F30E00F92E63 /* UIDevice+Info.swift */; };
+		B509EDDA1F54F30E00F92E63 /* Logger+ObjC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B509EDCB1F54F30E00F92E63 /* Logger+ObjC.swift */; };
+		B509EDDB1F54F30E00F92E63 /* Dictionary+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B509EDCC1F54F30E00F92E63 /* Dictionary+JSON.swift */; };
+		B509EDDC1F54F30E00F92E63 /* String+Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B509EDCD1F54F30E00F92E63 /* String+Conversion.swift */; };
+		B509EDDD1F54F30E00F92E63 /* Data+Representation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B509EDCE1F54F30E00F92E63 /* Data+Representation.swift */; };
+		B509EDDE1F54F30E00F92E63 /* NSError+Readability.swift in Sources */ = {isa = PBXBuildFile; fileRef = B509EDCF1F54F30E00F92E63 /* NSError+Readability.swift */; };
+		B509EDDF1F54F30E00F92E63 /* Dictionary+Flattening.swift in Sources */ = {isa = PBXBuildFile; fileRef = B509EDD01F54F30E00F92E63 /* Dictionary+Flattening.swift */; };
 		B509EDE81F5506EA00F92E63 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B509EDE11F54F41300F92E63 /* CocoaAsyncSocket.framework */; };
 		B509EDE91F5506EA00F92E63 /* SwiftyBeaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B509EDE31F54F41E00F92E63 /* SwiftyBeaver.framework */; };
-		CFDB7FCC20069FB00051DFED /* Data+Representation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDB7FC420069FB00051DFED /* Data+Representation.swift */; };
-		CFDB7FCD20069FB00051DFED /* Dictionary+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDB7FC520069FB00051DFED /* Dictionary+JSON.swift */; };
-		CFDB7FCE20069FB00051DFED /* Logger+ObjC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDB7FC620069FB00051DFED /* Logger+ObjC.swift */; };
-		CFDB7FCF20069FB00051DFED /* NSError+Readability.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDB7FC720069FB00051DFED /* NSError+Readability.swift */; };
-		CFDB7FD020069FB00051DFED /* String+Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDB7FC820069FB00051DFED /* String+Conversion.swift */; };
-		CFDB7FD120069FB00051DFED /* NSError+UnderlyingErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDB7FC920069FB00051DFED /* NSError+UnderlyingErrors.swift */; };
-		CFDB7FD220069FB00051DFED /* UIDevice+Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDB7FCA20069FB00051DFED /* UIDevice+Info.swift */; };
-		CFDB7FD320069FB00051DFED /* Dictionary+Flattening.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDB7FCB20069FB00051DFED /* Dictionary+Flattening.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,16 +50,15 @@
 		B509EDC61F54F30E00F92E63 /* FileDestination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDestination.swift; sourceTree = "<group>"; };
 		B509EDC71F54F30E00F92E63 /* AsyncSocketManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncSocketManager.swift; sourceTree = "<group>"; };
 		B509EDC81F54F30E00F92E63 /* ConsoleDestination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleDestination.swift; sourceTree = "<group>"; };
+		B509EDCA1F54F30E00F92E63 /* UIDevice+Info.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Info.swift"; sourceTree = "<group>"; };
+		B509EDCB1F54F30E00F92E63 /* Logger+ObjC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Logger+ObjC.swift"; sourceTree = "<group>"; };
+		B509EDCC1F54F30E00F92E63 /* Dictionary+JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+JSON.swift"; sourceTree = "<group>"; };
+		B509EDCD1F54F30E00F92E63 /* String+Conversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Conversion.swift"; sourceTree = "<group>"; };
+		B509EDCE1F54F30E00F92E63 /* Data+Representation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Representation.swift"; sourceTree = "<group>"; };
+		B509EDCF1F54F30E00F92E63 /* NSError+Readability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSError+Readability.swift"; sourceTree = "<group>"; };
+		B509EDD01F54F30E00F92E63 /* Dictionary+Flattening.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Flattening.swift"; sourceTree = "<group>"; };
 		B509EDE11F54F41300F92E63 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = ../Carthage/Build/iOS/CocoaAsyncSocket.framework; sourceTree = "<group>"; };
 		B509EDE31F54F41E00F92E63 /* SwiftyBeaver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyBeaver.framework; path = ../Carthage/Build/iOS/SwiftyBeaver.framework; sourceTree = "<group>"; };
-		CFDB7FC420069FB00051DFED /* Data+Representation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Representation.swift"; sourceTree = "<group>"; };
-		CFDB7FC520069FB00051DFED /* Dictionary+JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+JSON.swift"; sourceTree = "<group>"; };
-		CFDB7FC620069FB00051DFED /* Logger+ObjC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Logger+ObjC.swift"; sourceTree = "<group>"; };
-		CFDB7FC720069FB00051DFED /* NSError+Readability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSError+Readability.swift"; sourceTree = "<group>"; };
-		CFDB7FC820069FB00051DFED /* String+Conversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Conversion.swift"; sourceTree = "<group>"; };
-		CFDB7FC920069FB00051DFED /* NSError+UnderlyingErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSError+UnderlyingErrors.swift"; sourceTree = "<group>"; };
-		CFDB7FCA20069FB00051DFED /* UIDevice+Info.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Info.swift"; sourceTree = "<group>"; };
-		CFDB7FCB20069FB00051DFED /* Dictionary+Flattening.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Flattening.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,14 +137,13 @@
 		B509EDC91F54F30E00F92E63 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				CFDB7FC420069FB00051DFED /* Data+Representation.swift */,
-				CFDB7FCB20069FB00051DFED /* Dictionary+Flattening.swift */,
-				CFDB7FC520069FB00051DFED /* Dictionary+JSON.swift */,
-				CFDB7FC620069FB00051DFED /* Logger+ObjC.swift */,
-				CFDB7FC720069FB00051DFED /* NSError+Readability.swift */,
-				CFDB7FC920069FB00051DFED /* NSError+UnderlyingErrors.swift */,
-				CFDB7FC820069FB00051DFED /* String+Conversion.swift */,
-				CFDB7FCA20069FB00051DFED /* UIDevice+Info.swift */,
+				B509EDCA1F54F30E00F92E63 /* UIDevice+Info.swift */,
+				B509EDCB1F54F30E00F92E63 /* Logger+ObjC.swift */,
+				B509EDCC1F54F30E00F92E63 /* Dictionary+JSON.swift */,
+				B509EDCD1F54F30E00F92E63 /* String+Conversion.swift */,
+				B509EDCE1F54F30E00F92E63 /* Data+Representation.swift */,
+				B509EDCF1F54F30E00F92E63 /* NSError+Readability.swift */,
+				B509EDD01F54F30E00F92E63 /* Dictionary+Flattening.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -217,7 +214,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = Spire;
 				TargetAttributes = {
 					B509EDA41F54F2AA00F92E63 = {
@@ -272,20 +269,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B509EDDF1F54F30E00F92E63 /* Dictionary+Flattening.swift in Sources */,
+				B509EDDE1F54F30E00F92E63 /* NSError+Readability.swift in Sources */,
+				B509EDDB1F54F30E00F92E63 /* Dictionary+JSON.swift in Sources */,
 				B509EDD81F54F30E00F92E63 /* ConsoleDestination.swift in Sources */,
-				CFDB7FD120069FB00051DFED /* NSError+UnderlyingErrors.swift in Sources */,
-				CFDB7FD220069FB00051DFED /* UIDevice+Info.swift in Sources */,
 				B509EDD21F54F30E00F92E63 /* Logging.swift in Sources */,
 				B509EDD31F54F30E00F92E63 /* Logger.swift in Sources */,
-				CFDB7FCD20069FB00051DFED /* Dictionary+JSON.swift in Sources */,
-				CFDB7FCE20069FB00051DFED /* Logger+ObjC.swift in Sources */,
-				CFDB7FD320069FB00051DFED /* Dictionary+Flattening.swift in Sources */,
-				CFDB7FD020069FB00051DFED /* String+Conversion.swift in Sources */,
 				B509EDD71F54F30E00F92E63 /* AsyncSocketManager.swift in Sources */,
-				CFDB7FCF20069FB00051DFED /* NSError+Readability.swift in Sources */,
 				B509EDD61F54F30E00F92E63 /* FileDestination.swift in Sources */,
+				B509EDDC1F54F30E00F92E63 /* String+Conversion.swift in Sources */,
+				B509EDDD1F54F30E00F92E63 /* Data+Representation.swift in Sources */,
+				B509EDDA1F54F30E00F92E63 /* Logger+ObjC.swift in Sources */,
 				B509EDD51F54F30E00F92E63 /* LogstashDestination.swift in Sources */,
-				CFDB7FCC20069FB00051DFED /* Data+Representation.swift in Sources */,
+				B509EDD91F54F30E00F92E63 /* UIDevice+Info.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
