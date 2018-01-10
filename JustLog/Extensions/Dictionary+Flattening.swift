@@ -9,16 +9,16 @@
 import Foundation
 
 extension Dictionary where Key == String {
-    
+
     /// Defines how the dictionary will be flattened and the key-value pairs will be merged.
     ///
     /// - override: Overrides the keys and the values.
     /// - encapsulateFlatten: keeps the keys and adds the values to an array.
-    
+
     func flattened() -> [String : Any] {
-        
+
         var retVal = [String : Any]()
-        
+
         for (k, v) in self {
             switch v {
             case is String,
@@ -47,10 +47,10 @@ extension Dictionary where Key == String {
                 continue
             }
         }
-        
+
         return retVal
     }
-    
+
     func merged(with dictionary: [String : Any]) -> [String : Any] {
         var retValue = self as [String :Any]
         dictionary.forEach { (key, value) in
