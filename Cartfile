@@ -1,2 +1,2 @@
-github "spire-inc/SwiftyBeaver" "remove-coverage"
+github "SwiftyBeaver/SwiftyBeaver" ~> 1.4.0
 github "robbiehanson/CocoaAsyncSocket" "master"
