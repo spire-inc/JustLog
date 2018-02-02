@@ -104,7 +104,10 @@ public class LogstashDestination: BaseDestination  {
     func addLog(_ dict: [String: Any]) {
         let time = mach_absolute_time()
         let logTag = Int(truncatingIfNeeded: time)
-        logsToShip[logTag] = dict
+        logDispatchQueue.addOperation { [weak self] in
+            self?.logsToShip[logTag] = dict
+        }
+
     }
 }
 
