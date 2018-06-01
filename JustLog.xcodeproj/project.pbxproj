@@ -25,6 +25,7 @@
 		B509EDDF1F54F30E00F92E63 /* Dictionary+Flattening.swift in Sources */ = {isa = PBXBuildFile; fileRef = B509EDD01F54F30E00F92E63 /* Dictionary+Flattening.swift */; };
 		B509EDE81F5506EA00F92E63 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B509EDE11F54F41300F92E63 /* CocoaAsyncSocket.framework */; };
 		B509EDE91F5506EA00F92E63 /* SwiftyBeaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B509EDE31F54F41E00F92E63 /* SwiftyBeaver.framework */; };
+		CF87350B20C0F8F3007A23F3 /* NSError+UnderlyingErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF87350A20C0F8F3007A23F3 /* NSError+UnderlyingErrors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		B509EDD01F54F30E00F92E63 /* Dictionary+Flattening.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Flattening.swift"; sourceTree = "<group>"; };
 		B509EDE11F54F41300F92E63 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = ../Carthage/Build/iOS/CocoaAsyncSocket.framework; sourceTree = "<group>"; };
 		B509EDE31F54F41E00F92E63 /* SwiftyBeaver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyBeaver.framework; path = ../Carthage/Build/iOS/SwiftyBeaver.framework; sourceTree = "<group>"; };
+		CF87350A20C0F8F3007A23F3 /* NSError+UnderlyingErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSError+UnderlyingErrors.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +145,7 @@
 				B509EDCD1F54F30E00F92E63 /* String+Conversion.swift */,
 				B509EDCE1F54F30E00F92E63 /* Data+Representation.swift */,
 				B509EDCF1F54F30E00F92E63 /* NSError+Readability.swift */,
+				CF87350A20C0F8F3007A23F3 /* NSError+UnderlyingErrors.swift */,
 				B509EDD01F54F30E00F92E63 /* Dictionary+Flattening.swift */,
 			);
 			path = Extensions;
@@ -214,7 +217,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = Spire;
 				TargetAttributes = {
 					B509EDA41F54F2AA00F92E63 = {
@@ -274,6 +277,7 @@
 				B509EDDB1F54F30E00F92E63 /* Dictionary+JSON.swift in Sources */,
 				B509EDD81F54F30E00F92E63 /* ConsoleDestination.swift in Sources */,
 				B509EDD21F54F30E00F92E63 /* Logging.swift in Sources */,
+				CF87350B20C0F8F3007A23F3 /* NSError+UnderlyingErrors.swift in Sources */,
 				B509EDD31F54F30E00F92E63 /* Logger.swift in Sources */,
 				B509EDD71F54F30E00F92E63 /* AsyncSocketManager.swift in Sources */,
 				B509EDD61F54F30E00F92E63 /* FileDestination.swift in Sources */,
@@ -318,6 +322,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -325,6 +330,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -380,6 +386,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -387,6 +394,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
