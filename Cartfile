@@ -1,2 +1,2 @@
-github "SwiftyBeaver/SwiftyBeaver" ~> 1.4.0
+github "spire-inc/SwiftyBeaver" "uptime-json"
 github "robbiehanson/CocoaAsyncSocket" "master"
