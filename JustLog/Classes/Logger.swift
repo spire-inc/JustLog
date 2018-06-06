@@ -196,7 +196,7 @@ extension Logger {
         
         var retVal = [String : Any]()
         retVal[messageConst] = message
-        retVal[metadataConst] = metadataDictionary(file, function, line)
+        retVal[metadataConst] = metadataDictionary(file, function, line, context)
         
         if let userInfo = userInfo {
             for (key, value) in userInfo {
@@ -214,8 +214,12 @@ extension Logger {
         return retVal.toJSON() ?? ""
     }
     
-    private func metadataDictionary(_ file: String, _ function: String, _ line: UInt) -> [String: Any] {
+    private func metadataDictionary(_ file: String, _ function: String, _ line: UInt, _ context: Any?) -> [String: Any] {
         var fileMetadata = [String : String]()
+
+        if let queueString = context as? String {
+            fileMetadata[queueLabelKey] = queueString
+        }
         
         if let url = URL(string: file) {
             fileMetadata[fileKey] = URLComponents(url: url, resolvingAgainstBaseURL: false)?.url?.pathComponents.last ?? file
