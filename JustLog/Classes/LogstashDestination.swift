@@ -47,12 +47,8 @@ public class LogstashDestination: BaseDestination  {
 
     override public func send(_ level: SwiftyBeaver.Level, msg: String, thread: String,
                               file: String, function: String, line: Int, context: Any?) -> String? {
-
-        self.format = "$J"
-        let json = super.send(level, msg: msg, thread: thread, file: file, function: function, line: line)
-
-        if let msgDict = msg.toDictionary(), let jsonDict = json?.toDictionary() {
-            let dict = msgDict.merged(with: jsonDict)
+        
+        if let dict = msg.toDictionary() {
             var flattened = dict.flattened()
             if let logzioToken = logzioToken {
                 flattened = flattened.merged(with: [logzioTokenKey: logzioToken])
