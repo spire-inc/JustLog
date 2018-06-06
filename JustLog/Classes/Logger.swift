@@ -71,7 +71,7 @@ public final class Logger: NSObject {
     }
     
     public func setup() {
-        let format = "$C $U $N:$F: $M"
+        let format = "$C $U $T:$N.$F $c | $M"
         
         // console
         if enableConsoleLogging {
