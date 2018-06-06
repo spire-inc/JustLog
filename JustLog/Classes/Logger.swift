@@ -26,6 +26,7 @@ public final class Logger: NSObject {
     public var functionKey = "function"
     public var lineKey = "line"
     public var queueLabelKey = "queue_label"
+    public var uptimeKey = "uptime"
     
     public var appVersionKey = "app_version"
     public var iosVersionKey = "ios_version"
@@ -57,7 +58,7 @@ public final class Logger: NSObject {
     public var enableFileLogging: Bool = true
     public var enableLogstashLogging: Bool = true
     public let internalLogger = SwiftyBeaver.self
-    private var dispatchTimer: Timer?
+    private var dispatchTimer: DispatchTimer?
     
     // destinations
     public var console: ConsoleDestination!
@@ -65,12 +66,12 @@ public final class Logger: NSObject {
     public var file: FileDestination!
     
     deinit {
-        dispatchTimer?.invalidate()
+        dispatchTimer?.cancel()
         dispatchTimer = nil
     }
     
     public func setup() {
-        let format = "$C $X $N:$F: $M"
+        let format = "$C %U $N:$F: $M"
         
         // console
         if enableConsoleLogging {
@@ -96,8 +97,11 @@ public final class Logger: NSObject {
             logstash.logzioToken = logzioToken
             internalLogger.addDestination(logstash)
         }
-        
-        dispatchTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(scheduledForceSend(_:)), userInfo: nil, repeats: true)
+
+        dispatchTimer = DispatchTimer(queue: .global(qos: .utility), interval: 5.0, repeats: true, handler: { [weak self] in
+            self?.scheduledForceSend()
+        })
+        dispatchTimer?.resume()
     }
     
     public func forceSend(_ completionHandler: @escaping (_ error: Error?) -> Void = {_ in }) {
@@ -239,7 +243,7 @@ extension Logger {
         return errorInfo
     }
     
-    @objc fileprivate func scheduledForceSend(_ timer: Timer) {
+    @objc fileprivate func scheduledForceSend() {
         forceSend()
     }
     

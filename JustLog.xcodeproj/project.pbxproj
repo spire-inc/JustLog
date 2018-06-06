@@ -25,6 +25,7 @@
 		B509EDDF1F54F30E00F92E63 /* Dictionary+Flattening.swift in Sources */ = {isa = PBXBuildFile; fileRef = B509EDD01F54F30E00F92E63 /* Dictionary+Flattening.swift */; };
 		B509EDE81F5506EA00F92E63 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B509EDE11F54F41300F92E63 /* CocoaAsyncSocket.framework */; };
 		B509EDE91F5506EA00F92E63 /* SwiftyBeaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B509EDE31F54F41E00F92E63 /* SwiftyBeaver.framework */; };
+		CF38284220C3F53400388608 /* DispatchTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF38284120C3F53400388608 /* DispatchTimer.swift */; };
 		CF87350B20C0F8F3007A23F3 /* NSError+UnderlyingErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF87350A20C0F8F3007A23F3 /* NSError+UnderlyingErrors.swift */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		B509EDD01F54F30E00F92E63 /* Dictionary+Flattening.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Flattening.swift"; sourceTree = "<group>"; };
 		B509EDE11F54F41300F92E63 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = ../Carthage/Build/iOS/CocoaAsyncSocket.framework; sourceTree = "<group>"; };
 		B509EDE31F54F41E00F92E63 /* SwiftyBeaver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyBeaver.framework; path = ../Carthage/Build/iOS/SwiftyBeaver.framework; sourceTree = "<group>"; };
+		CF38284120C3F53400388608 /* DispatchTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchTimer.swift; sourceTree = "<group>"; };
 		CF87350A20C0F8F3007A23F3 /* NSError+UnderlyingErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSError+UnderlyingErrors.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -132,6 +134,7 @@
 				B509EDC61F54F30E00F92E63 /* FileDestination.swift */,
 				B509EDC71F54F30E00F92E63 /* AsyncSocketManager.swift */,
 				B509EDC81F54F30E00F92E63 /* ConsoleDestination.swift */,
+				CF38284120C3F53400388608 /* DispatchTimer.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 				B509EDD71F54F30E00F92E63 /* AsyncSocketManager.swift in Sources */,
 				B509EDD61F54F30E00F92E63 /* FileDestination.swift in Sources */,
 				B509EDDC1F54F30E00F92E63 /* String+Conversion.swift in Sources */,
+				CF38284220C3F53400388608 /* DispatchTimer.swift in Sources */,
 				B509EDDD1F54F30E00F92E63 /* Data+Representation.swift in Sources */,
 				B509EDDA1F54F30E00F92E63 /* Logger+ObjC.swift in Sources */,
 				B509EDD51F54F30E00F92E63 /* LogstashDestination.swift in Sources */,
