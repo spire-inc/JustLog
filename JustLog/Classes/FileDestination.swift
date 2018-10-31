@@ -42,32 +42,63 @@ public class FileDestination: BaseDestination {
     }
 
     deinit {
+        // close file handle if set
         if let fileHandle = fileHandle {
             fileHandle.closeFile()
         }
     }
 
+    /// appends a string as line to a file.
+    /// returns boolean about success
     func saveToFile(str: String) -> Bool {
         guard let url = logFileURL else { return false }
         do {
-            if FileManager.default.fileExists(atPath: url.path) == false {
+            if fileManager.fileExists(atPath: url.path) == false {
+                // create file if not existing
                 let line = str + "\n"
                 try line.write(to: url, atomically: true, encoding: .utf8)
+                
+                #if os(iOS) || os(watchOS)
+                if #available(iOS 10.0, watchOS 3.0, *) {
+                    var attributes = try fileManager.attributesOfItem(atPath: url.path)
+                    attributes[FileAttributeKey.protectionKey] = FileProtectionType.none
+                    try fileManager.setAttributes(attributes, ofItemAtPath: url.path)
+                }
+                #endif
             } else {
+                // append to end of file
                 if fileHandle == nil {
+                    // initial setting of file handle
                     fileHandle = try FileHandle(forWritingTo: url as URL)
                 }
                 if let fileHandle = fileHandle {
-                    let _ = fileHandle.seekToEndOfFile()
+                    _ = fileHandle.seekToEndOfFile()
                     let line = str + "\n"
                     if let data = line.data(using: String.Encoding.utf8) {
                         fileHandle.write(data)
+                        if syncAfterEachWrite {
+                            fileHandle.synchronizeFile()
+                        }
                     }
                 }
             }
             return true
         } catch {
             print("SwiftyBeaver File Destination could not write to file \(url).")
+            return false
+        }
+    }
+
+    /// deletes log file.
+    /// returns true if file was removed or does not exist, false otherwise
+    public func deleteLogFile() -> Bool {
+        guard let url = logFileURL, fileManager.fileExists(atPath: url.path) == true else { return true }
+        do {
+            try fileManager.removeItem(at: url)
+            fileHandle = nil
+            return true
+        } catch {
+            print("SwiftyBeaver File Destination could not remove file \(url).")
             return false
         }
     }
