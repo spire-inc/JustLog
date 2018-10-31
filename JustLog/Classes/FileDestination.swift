@@ -12,8 +12,11 @@ import SwiftyBeaver
 public class FileDestination: BaseDestination {
 
     public var logFileURL: URL?
+    public var syncAfterEachWrite: Bool = false
 
-    var fileHandle: FileHandle? = nil
+    override public var defaultHashValue: Int {return 2}
+    let fileManager = FileManager.default
+    var fileHandle: FileHandle?
     
     public override init() {
         super.init()
