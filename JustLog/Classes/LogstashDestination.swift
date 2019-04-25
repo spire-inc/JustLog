@@ -74,10 +74,14 @@ public class LogstashDestination: BaseDestination  {
     }
     
     func writeLogs() {
-        logDispatchQueue.addOperation{ [weak socketManager, logsToShip] in
+        let logsCopy = logsToShip
+        guard !logsCopy.isEmpty else { return }
+        logDispatchQueue.addOperation{ [weak socketManager, logsCopy] in
             guard let socketManager = socketManager else { return }
 
-            for log in logsToShip.sorted(by: { $0.0 < $1.0 }) {
+            let sortedLogs = logsCopy.sorted(by: { $0.0 < $1.0 })
+
+            for log in sortedLogs {
                 let logData: Data = { dict in
                     var data = Data()
                     do {
@@ -86,7 +90,7 @@ public class LogstashDestination: BaseDestination  {
                             data.append(encodedData)
                         }
                     } catch {
-                        print(error.localizedDescription)
+                        NSLog(error.localizedDescription)
                     }
                     return data
                 }(log.value)
@@ -99,8 +103,11 @@ public class LogstashDestination: BaseDestination  {
     
     func addLog(_ dict: [String: Any]) {
         let time = mach_absolute_time()
-        let logTag = Int(truncatingBitPattern: time)
-        logsToShip[logTag] = dict
+        let logTag = Int(truncatingIfNeeded: time)
+        logDispatchQueue.addOperation { [weak self] in
+            self?.logsToShip[logTag] = dict
+        }
+
     }
 }
 
@@ -110,7 +117,7 @@ extension LogstashDestination: AsyncSocketManagerDelegate {
     
     func socket(_ socket: GCDAsyncSocket, didWriteDataWithTag tag: Int) {
         logDispatchQueue.addOperation { [weak self] in
-            self?.logsToShip[tag] = nil
+            self?.logsToShip.removeValue(forKey: tag)
         }
         
         if let completionHandler = self.completionHandler {
@@ -121,12 +128,12 @@ extension LogstashDestination: AsyncSocketManagerDelegate {
     }
     
     func socketDidSecure(_ socket: GCDAsyncSocket) {
-        self.writeLogs()
+        writeLogs()
     }
     
     func socket(_ socket: GCDAsyncSocket, didDisconnectWithError error: Error?) {
         
-        if let completionHandler = self.completionHandler {
+        if let completionHandler = completionHandler {
             completionHandler(error)
         }
         

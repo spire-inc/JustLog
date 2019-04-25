@@ -9,8 +9,16 @@
 import Foundation
 import SwiftyBeaver
 
-@objc
+@objcMembers
 public final class Logger: NSObject {
+    
+    internal enum LogType {
+        case debug
+        case warning
+        case verbose
+        case error
+        case info
+    }
     
     public var logTypeKey = "log_type"
     
@@ -142,6 +150,20 @@ extension Logger: Logging {
         internalLogger.error(logMessage, file, function, line: Int(line), context: currentQueueLabel())
     }
     
+    internal func sendLogMessage(with type: LogType, logMessage: String, _ file: String, _ function: String, _ line: UInt) {
+        switch type {
+        case .error:
+            internalLogger.error(logMessage, file, function, line: Int(line))
+        case .warning:
+            internalLogger.warning(logMessage, file, function, line: Int(line))
+        case .debug:
+            internalLogger.debug(logMessage, file, function, line: Int(line))
+        case .info:
+            internalLogger.info(logMessage, file, function, line: Int(line))
+        case .verbose:
+            internalLogger.verbose(logMessage, file, function, line: Int(line))
+        }
+    }
 }
 
 extension Logger {
@@ -153,18 +175,37 @@ extension Logger {
             return ""
         }
     }
-    
+
     fileprivate func logMessage(_ message: String, error: NSError?, userInfo: [String : Any]?, _ file: String, _ function: String, _ line: UInt, _ context: Any? = nil) -> String {
-        
+
         let messageConst = "message"
-        let userInfoConst = "userInfo"
+        let userInfoConst = "user_info"
         let metadataConst = "metadata"
+        let errorsConst = "errors"
         
         var options = defaultUserInfo ?? [String : Any]()
         
         var retVal = [String : Any]()
         retVal[messageConst] = message
+        retVal[metadataConst] = metadataDictionary(file, function, line)
         
+        if let userInfo = userInfo {
+            for (key, value) in userInfo {
+                _ = options.updateValue(value, forKey: key)
+            }
+            retVal[userInfoConst] = options
+        }
+
+        
+        if let error = error {
+            retVal[errorsConst] = error.disassociatedErrorChain().map { return errorDictionary(for: $0) }
+        }
+        
+        
+        return retVal.toJSON() ?? ""
+    }
+    
+    private func metadataDictionary(_ file: String, _ function: String, _ line: UInt) -> [String: Any] {
         var fileMetadata = [String : String]()
         
         if let url = URL(string: file) {
@@ -173,7 +214,6 @@ extension Logger {
         
         fileMetadata[functionKey] = function
         fileMetadata[lineKey] = String(line)
-        fileMetadata[queueLabelKey] = String(describing: context)
         
         if let bundleVersion = Bundle.main.infoDictionary?["CFBundleVersion"], let bundleShortVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] {
             fileMetadata[appVersionKey] = "\(bundleShortVersion) (\(bundleVersion))"
@@ -182,24 +222,16 @@ extension Logger {
         fileMetadata[iosVersionKey] = UIDevice.current.systemVersion
         fileMetadata[deviceTypeKey] = UIDevice.current.platform()
         
-        retVal[metadataConst] = fileMetadata
-        
-        if let userInfo = userInfo {
-            for (key, value) in userInfo {
-                _ = options.updateValue(value, forKey: key)
-            }
-        }
-        
-        if let error = error {
-            let errorInfo = [errorDomain: error.domain,
-                             errorCode: error.code] as [String : Any]
-            let errorUserInfo = error.humanReadableError().userInfo
-            options = options.merged(with: errorInfo).merged(with: errorUserInfo.flattened())
-        }
-        
-        retVal[userInfoConst] = options
-        
-        return retVal.toJSON() ?? ""
+        return fileMetadata
+    }
+    
+    internal func errorDictionary(for error: NSError) -> [String : Any] {
+        let userInfoConst = "user_info"
+        var errorInfo = [errorDomain: error.domain,
+                         errorCode: error.code] as [String : Any]
+        let errorUserInfo = error.humanReadableError().userInfo
+        errorInfo[userInfoConst] = errorUserInfo
+        return errorInfo
     }
     
     @objc fileprivate func scheduledForceSend(_ timer: Timer) {
