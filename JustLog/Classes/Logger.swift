@@ -61,7 +61,7 @@ public final class Logger: NSObject {
     public let internalLogger = SwiftyBeaver.self
     
     private var dispatchInterval: TimeInterval = 5.0
-    private var dispatchTimer: Timer?
+    private var dispatchTimer: DispatchTimer?
     
     // destinations
     public var console: ConsoleDestination!
@@ -101,10 +101,12 @@ public final class Logger: NSObject {
             logstash.logzioToken = logzioToken
             internalLogger.addDestination(logstash)
             
-            dispatchTimer = Timer.scheduledTimer(withTimeInterval: dispatchInterval, repeats: true) { [weak self] timer in
+            dispatchTimer = DispatchTimer(queue: .global(qos: .utility), interval: dispatchInterval, repeats: true, handler: { [weak self] in
                 guard let self = self else { return }
                 self.forceSend()
-            }
+            })
+            dispatchTimer?.resume()
+            
         }
     }
     

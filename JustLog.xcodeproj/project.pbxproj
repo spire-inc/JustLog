@@ -41,6 +41,7 @@
 		A6028123206555D000348BCE /* UIDevice+Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6028113206555D000348BCE /* UIDevice+Info.swift */; };
 		A60281282065560F00348BCE /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A60281262065560F00348BCE /* CocoaAsyncSocket.framework */; };
 		A60281292065560F00348BCE /* SwiftyBeaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A60281272065560F00348BCE /* SwiftyBeaver.framework */; };
+		EDC9874923702B73008151D2 /* DispatchTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC9874823702B72008151D2 /* DispatchTimer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		A6028113206555D000348BCE /* UIDevice+Info.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Info.swift"; sourceTree = "<group>"; };
 		A60281262065560F00348BCE /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = Carthage/Build/iOS/CocoaAsyncSocket.framework; sourceTree = "<group>"; };
 		A60281272065560F00348BCE /* SwiftyBeaver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyBeaver.framework; path = Carthage/Build/iOS/SwiftyBeaver.framework; sourceTree = "<group>"; };
+		EDC9874823702B72008151D2 /* DispatchTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchTimer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 				A6028107206555D000348BCE /* FileDestination.swift */,
 				A6028108206555D000348BCE /* Logger.swift */,
 				A6028109206555D000348BCE /* Logging.swift */,
+				EDC9874823702B72008151D2 /* DispatchTimer.swift */,
 				A602810A206555D000348BCE /* LogstashDestination.swift */,
 			);
 			path = Classes;
@@ -319,6 +322,7 @@
 				A6028116206555D000348BCE /* AsyncSocketManager.swift in Sources */,
 				A6028119206555D000348BCE /* Logger.swift in Sources */,
 				A602811B206555D000348BCE /* LogstashDestination.swift in Sources */,
+				EDC9874923702B73008151D2 /* DispatchTimer.swift in Sources */,
 				A6028120206555D000348BCE /* NSError+Readability.swift in Sources */,
 				A602811C206555D000348BCE /* Data+Representation.swift in Sources */,
 				A602811F206555D000348BCE /* Logger+ObjC.swift in Sources */,
