@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B509EDA41F54F2AA00F92E63"
+               BlueprintIdentifier = "4D2F04F620DD2FF9004286A7"
                BuildableName = "JustLog.framework"
-               BlueprintName = "JustLog"
+               BlueprintName = "JustLog_tvos"
                ReferencedContainer = "container:JustLog.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B509EDA41F54F2AA00F92E63"
+            BlueprintIdentifier = "4D2F04F620DD2FF9004286A7"
             BuildableName = "JustLog.framework"
-            BlueprintName = "JustLog"
+            BlueprintName = "JustLog_tvos"
             ReferencedContainer = "container:JustLog.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -63,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B509EDA41F54F2AA00F92E63"
+            BlueprintIdentifier = "4D2F04F620DD2FF9004286A7"
             BuildableName = "JustLog.framework"
-            BlueprintName = "JustLog"
+            BlueprintName = "JustLog_tvos"
             ReferencedContainer = "container:JustLog.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

@@ -28,19 +28,13 @@ public class ConsoleDestination: BaseDestination {
         levelString.error = ""
     }
 
-    override public func send(_ level: SwiftyBeaver.Level, msg: String, thread: String,
-        file: String, function: String, line: Int, context: Any?) -> String? {
-
-        var dict = msg.toDictionary()
-        guard var innerMessage = dict?["message"] as? String else { return nil }
-
-        if let userInfo = dict?["userInfo"] as? Dictionary<String, Any> {
-            if let queueLabel = userInfo["queue_label"] as? String {
-                innerMessage = "(\(queueLabel)) " + innerMessage
-            }
-        }
-
-        let formattedString = super.send(level, msg: innerMessage, thread: thread, file: file, function: function, line: line, context: context)
+    override public func send(_ level: SwiftyBeaver.Level, msg: String, thread: String, file: String,
+                              function: String, line: Int, context: Any? = nil) -> String? {
+        
+        let dict = msg.toDictionary()
+        guard let innerMessage = dict?["message"] as? String else { return nil }
+        
+        let formattedString = super.send(level, msg: innerMessage, thread: thread, file: file, function: function, line: line)
 
         if let str = formattedString {
             os_log("%{public}@", str)

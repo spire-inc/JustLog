@@ -102,21 +102,35 @@ public class LogstashDestination: BaseDestination  {
     }
     
     func addLog(_ dict: [String: Any]) {
-        let time = mach_absolute_time()
-        let logTag = Int(truncatingIfNeeded: time)
         logDispatchQueue.addOperation { [weak self] in
+            let time = mach_absolute_time()
+            let logTag = Int(truncatingIfNeeded: time)
             self?.logsToShip[logTag] = dict
         }
-
     }
-}
+    
+    func dataToShip(_ dict: [String: Any]) -> Data {
+        
+        var data = Data()
+        
+        do {
+            data = try JSONSerialization.data(withJSONObject:dict, options:[])
+            
+            if let encodedData = "\n".data(using: String.Encoding.utf8) {
+                data.append(encodedData)
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+
 
 // MARK: - GCDAsyncSocketManager Delegate
 
 extension LogstashDestination: AsyncSocketManagerDelegate {
     
     func socket(_ socket: GCDAsyncSocket, didWriteDataWithTag tag: Int) {
-        logDispatchQueue.addOperation { [weak self] in
+        logDispatchQueue.addOperation { [weak self, tag] in
             self?.logsToShip.removeValue(forKey: tag)
         }
         
@@ -140,4 +154,4 @@ extension LogstashDestination: AsyncSocketManagerDelegate {
         completionHandler = nil
     }
 }
- 
+

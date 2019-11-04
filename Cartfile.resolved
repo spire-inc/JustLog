@@ -1,2 +1,2 @@
-github "SwiftyBeaver/SwiftyBeaver" "1.6.0"
-github "robbiehanson/CocoaAsyncSocket" "ec6c373de9eb7606a229ab927d1cce432073cc26"
+github "SwiftyBeaver/SwiftyBeaver" "1.7.0"
+github "robbiehanson/CocoaAsyncSocket" "7.6.3"
