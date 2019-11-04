@@ -123,6 +123,7 @@ public class LogstashDestination: BaseDestination  {
             print(error.localizedDescription)
         }
     }
+}
 
 
 // MARK: - GCDAsyncSocketManager Delegate
