@@ -106,12 +106,6 @@ public final class Logger: NSObject {
                 self.forceSend()
             }
         }
-
-        dispatchTimer = DispatchTimer(queue: .global(qos: .utility), interval: 5.0, repeats: true, handler: { [weak self] in
-            self?.scheduledForceSend()
-        })
-        
-        dispatchTimer?.resume()
     }
     
     public func forceSend(_ completionHandler: @escaping (_ error: Error?) -> Void = {_ in }) {
@@ -256,9 +250,4 @@ extension Logger {
         errorInfo[userInfoConst] = errorUserInfo
         return errorInfo
     }
-
-    @objc fileprivate func scheduledForceSend() {
-        forceSend()
-    }
-
 }
