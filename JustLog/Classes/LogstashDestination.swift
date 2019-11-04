@@ -122,6 +122,8 @@ public class LogstashDestination: BaseDestination  {
         } catch {
             print(error.localizedDescription)
         }
+        
+        return data
     }
 }
 
