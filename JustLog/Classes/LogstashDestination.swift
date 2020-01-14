@@ -82,7 +82,7 @@ public class LogstashDestination: BaseDestination  {
         
         self.logDispatchQueue.addOperation{ [weak self] in
             
-            guard let `self` = self else { return }
+            guard let self = self else { return }
             
             for log in self.logsToShip.sorted(by: { $0.0 < $1.0 }) {
                 let logData = self.dataToShip(log.1)
