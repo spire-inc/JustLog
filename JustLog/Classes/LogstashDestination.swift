@@ -21,6 +21,7 @@ public class LogstashDestination: BaseDestination  {
     var logActivity: Bool = false
     let logDispatchQueue = OperationQueue()
    
+    private let timeout: TimeInterval
     private var socketManager: AsyncSocketManager?
     
     @available(*, unavailable)
@@ -32,6 +33,7 @@ public class LogstashDestination: BaseDestination  {
         super.init()
         self.logActivity = logActivity
         self.logDispatchQueue.maxConcurrentOperationCount = 1
+        self.timeout = timeout
         self.socketManager = AsyncSocketManager(host: host, port: port, timeout: timeout, delegate: self, logActivity: logActivity, allowUntrustedServer: allowUntrustedServer)
     }
     
@@ -86,7 +88,7 @@ public class LogstashDestination: BaseDestination  {
             
             for log in self.logsToShip.sorted(by: { $0.0 < $1.0 }) {
                 let logData = self.dataToShip(log.1)
-                self.socketManager.write(logData, withTimeout: self.socketManager.timeout, tag: log.0)
+                self.socketManager?.write(logData, withTimeout: self.socketManager?.timeout ?? timeout, tag: log.0)
             }
             
             self.socketManager?.disconnectSafely()
