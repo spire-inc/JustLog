@@ -88,7 +88,7 @@ public class LogstashDestination: BaseDestination  {
             
             for log in self.logsToShip.sorted(by: { $0.0 < $1.0 }) {
                 let logData = self.dataToShip(log.1)
-                self.socketManager?.write(logData, withTimeout: self.socketManager?.timeout ?? timeout, tag: log.0)
+                self.socketManager?.write(logData, withTimeout: self.socketManager?.timeout ?? self.timeout, tag: log.0)
             }
             
             self.socketManager?.disconnectSafely()
