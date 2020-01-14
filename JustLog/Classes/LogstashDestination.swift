@@ -20,7 +20,8 @@ public class LogstashDestination: BaseDestination  {
     
     var logActivity: Bool = false
     let logDispatchQueue = OperationQueue()
-    var socketManager: AsyncSocketManager!
+   
+    private var socketManager: AsyncSocketManager?
     
     @available(*, unavailable)
     override init() {
@@ -40,7 +41,7 @@ public class LogstashDestination: BaseDestination  {
     
     public func cancelSending() {
         self.logDispatchQueue.cancelAllOperations()
-        self.socketManager.disconnect()
+        self.socketManager?.disconnect()
     }
     
     // MARK: - Log dispatching
@@ -60,8 +61,12 @@ public class LogstashDestination: BaseDestination  {
     }
 
     public func forceSend(_ completionHandler: @escaping (_ error: Error?) -> Void  = {_ in }) {
-        
-        if self.logsToShip.count == 0 || self.socketManager.isConnected() {
+        guard let socketManager = self.socketManager else {
+            completionHandler(nil)
+            return
+        }
+     
+        if self.logsToShip.count == 0 || socketManager.isConnected() {
             completionHandler(nil)
             return
         }
