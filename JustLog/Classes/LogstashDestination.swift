@@ -39,14 +39,14 @@ public class LogstashDestination: BaseDestination  {
     }
     
     public func cancelSending() {
-        logDispatchQueue.cancelAllOperations()
-        socketManager.disconnect()
+        self.logDispatchQueue.cancelAllOperations()
+        self.socketManager.disconnect()
     }
     
     // MARK: - Log dispatching
 
-    override public func send(_ level: SwiftyBeaver.Level, msg: String, thread: String,
-                              file: String, function: String, line: Int, context: Any?) -> String? {
+    override public func send(_ level: SwiftyBeaver.Level, msg: String, thread: String, file: String,
+                              function: String, line: Int, context: Any? = nil) -> String? {
         
         if let dict = msg.toDictionary() {
             var flattened = dict.flattened()
@@ -61,43 +61,30 @@ public class LogstashDestination: BaseDestination  {
 
     public func forceSend(_ completionHandler: @escaping (_ error: Error?) -> Void  = {_ in }) {
         
-        if logsToShip.count == 0 || socketManager.isConnected() {
+        if self.logsToShip.count == 0 || self.socketManager.isConnected() {
             completionHandler(nil)
             return
         }
 
         self.completionHandler = completionHandler
         
-        logDispatchQueue.addOperation { [weak socketManager] in
-            socketManager?.send()
+        logDispatchQueue.addOperation { [weak self] in
+            self?.socketManager.send()
         }
     }
     
     func writeLogs() {
-        let logsCopy = logsToShip
-        guard !logsCopy.isEmpty else { return }
-        logDispatchQueue.addOperation{ [weak socketManager, logsCopy] in
-            guard let socketManager = socketManager else { return }
-
-            let sortedLogs = logsCopy.sorted(by: { $0.0 < $1.0 })
-
-            for log in sortedLogs {
-                let logData: Data = { dict in
-                    var data = Data()
-                    do {
-                        data = try JSONSerialization.data(withJSONObject:dict, options:[])
-                        if let encodedData = "\n".data(using: String.Encoding.utf8) {
-                            data.append(encodedData)
-                        }
-                    } catch {
-                        NSLog(error.localizedDescription)
-                    }
-                    return data
-                }(log.value)
-                socketManager.write(logData, withTimeout: socketManager.timeout, tag: log.0)
+        
+        self.logDispatchQueue.addOperation{ [weak self] in
+            
+            guard let `self` = self else { return }
+            
+            for log in self.logsToShip.sorted(by: { $0.0 < $1.0 }) {
+                let logData = self.dataToShip(log.1)
+                self.socketManager.write(logData, withTimeout: self.socketManager.timeout, tag: log.0)
             }
             
-            socketManager.disconnectSafely()
+            self.socketManager.disconnectSafely()
         }
     }
     
@@ -125,8 +112,8 @@ public class LogstashDestination: BaseDestination  {
         
         return data
     }
+    
 }
-
 
 // MARK: - GCDAsyncSocketManager Delegate
 
@@ -134,7 +121,7 @@ extension LogstashDestination: AsyncSocketManagerDelegate {
     
     func socket(_ socket: GCDAsyncSocket, didWriteDataWithTag tag: Int) {
         logDispatchQueue.addOperation { [weak self, tag] in
-            self?.logsToShip.removeValue(forKey: tag)
+            self?.logsToShip[tag] = nil
         }
         
         if let completionHandler = self.completionHandler {
@@ -145,12 +132,12 @@ extension LogstashDestination: AsyncSocketManagerDelegate {
     }
     
     func socketDidSecure(_ socket: GCDAsyncSocket) {
-        writeLogs()
+        self.writeLogs()
     }
     
     func socket(_ socket: GCDAsyncSocket, didDisconnectWithError error: Error?) {
         
-        if let completionHandler = completionHandler {
+        if let completionHandler = self.completionHandler {
             completionHandler(error)
         }
         
