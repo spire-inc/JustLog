@@ -74,7 +74,7 @@ public class LogstashDestination: BaseDestination  {
         self.completionHandler = completionHandler
         
         logDispatchQueue.addOperation { [weak self] in
-            self?.socketManager.send()
+            self?.socketManager?.send()
         }
     }
     
@@ -89,7 +89,7 @@ public class LogstashDestination: BaseDestination  {
                 self.socketManager.write(logData, withTimeout: self.socketManager.timeout, tag: log.0)
             }
             
-            self.socketManager.disconnectSafely()
+            self.socketManager?.disconnectSafely()
         }
     }
     
